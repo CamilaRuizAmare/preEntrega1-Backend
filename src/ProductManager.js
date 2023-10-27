@@ -67,7 +67,7 @@ class ProductManager {
                 return idProduct;
             }
             else {
-                return 'El producto no se ha encontrado';
+                return;
             };
         }
         catch (error) {

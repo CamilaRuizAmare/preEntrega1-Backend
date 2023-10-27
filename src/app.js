@@ -1,5 +1,4 @@
 import express from 'express';
-import fs from 'fs';
 import productManager from './ProductManager.js';
 
 const app = express();
@@ -23,31 +22,18 @@ app.get('/products', async (req, res) => {
     }
 });
 
-/* app.get('/products/:id', async (req, res) => {
+app.get('/products/:id', async (req, res) => {
     try{
         const productID = req.params.id;
         const productByID = await productManager.getProductById(productID);
+        if(!productByID) {
+            res.status(404).send('Product not found');
+        };
         res.status(200).send(productByID);
     }
     catch(err){
         res.status(500).send('Error al conectar con el servidor' + err.message);
     }
-}); */
-
-app.get('/products/:id', async (req, res) => {
-    try{
-        const productID = req.params.id;
-        const products = await productManager.getProducts();
-        const product = products.find(prod => prod.id === productID);
-        if(!product) {
-            res.status(404).send('Product not found');
-        } else {
-            res.status(200).send(product);
-        }
-    }
-    catch(err){
-        res.status(500).send('Error al conectar con el servidor' + err.message);
-    };
 });
 
 
