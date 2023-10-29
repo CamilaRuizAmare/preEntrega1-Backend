@@ -21,7 +21,6 @@ class ProductManager {
     };
 
     async addProduct(title, description, price, thumbnail, code, stock) {
-        try {
             const file = await this.readFile();
             const id = file.length === 0 ? file.length + 1 : file[file.length - 1].id + 1;
             const product = {
@@ -42,25 +41,16 @@ class ProductManager {
             }
             else {
                 return `El producto con código ${product.code} ya fue ingresado`
-            }
-        }
-        catch (error) {
-            console.error(error);
-        };
+            };
     };
 
     async getProducts() {
-        try {
+        
             const products = await this.readFile();
             return products;
-        }
-        catch (error) {
-            console.error('Error al procesar el archivo', error);
-        }
     };
 
     async getProductById(id) {
-        try {
             const products = await this.readFile();
             const idProduct = products.find(product => product.id === id);
             if (idProduct) {
@@ -69,14 +59,9 @@ class ProductManager {
             else {
                 return;
             };
-        }
-        catch (error) {
-            console.error('Error al procesar la solicitud', error);
-        }
     };
 
     async updateProduct(id, newProduct) {
-        try {
             const products = await this.readFile();
             const productIndex = products.findIndex(product => product.id === id);
             if (productIndex !== -1) {
@@ -89,14 +74,10 @@ class ProductManager {
                 return 'Producto actualizado';
             } else {
                 return 'Producto no encontrado';
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
+            };
+    };
 
     async deleteProduct(id) {
-        try {
             const products = await this.readFile();
             const productIndex = products.findIndex(product => product.id === id);
             if (productIndex !== -1) {
@@ -106,12 +87,8 @@ class ProductManager {
             }
             else {
                 return 'Producto no encontrado';
-            }
-        }
-        catch (error) {
-            console.error('Error al procesar la solicitud', error);
-        }
-    }
+            };
+    };
 
 
 };
